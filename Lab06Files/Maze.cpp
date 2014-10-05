@@ -41,22 +41,22 @@ Cell* Maze::processBackTrack(StackLinked<Cell>* stack)
 {
    //DO THIS
    //you may need to back through several cells
-
+	
    Cell* top_cell = stack->peek();  
    //top_cell is NULL if the stack is empty
    //top_cell's direction is DEAD_END if you need to keep backtracking
 
-   while (                                        )  //need to back track
+   while (Direction==DEAD_END)  //need to back track
    {
       
 
 
       //remove the cell and set the maze location to BACKTRACK (the maze is a Matrix)
-
+		pop(cell);
 
 
       //look at the next cell
-
+		peek(nextcell());
 
 
 
@@ -68,15 +68,16 @@ Cell* Maze::processBackTrack(StackLinked<Cell>* stack)
    return top_cell;
 }
 
-bool Maze::isSolved(Cell* curr_cell, StackLinked<Cell>* stack)
+bool Maze::isSolved(Cell* curr_cell, StackLinked<Cell>* stack) //ask
 {
    //DO THIS
    //get row and col from curr_cell
-
+	cell->getrow(curr_cell)
+	cell->getcol(curr_cell)
 
 
    //have you solved the maze? (check that we are at the bottom right maze location and that it is a SPACE
-   if (                                                          )  
+   if ()  
    {
 
 
@@ -136,7 +137,7 @@ bool Maze::traverse()
 
       //call a method in the Cell class to give you a new Cell in a new direction relative to top_cell (initially, DOWN)
       //DO THIS
-      Cell* curr_cell = 
+      Cell* curr_cell = new Cell(1,2);
 
 
 
@@ -148,11 +149,11 @@ bool Maze::traverse()
 
       //DO THIS
       //get the row and col from curr_cell
-      int row = 
-      int col = 
+      int row = maze->getrow(curr_cell);
+      int col = maze->getcol(curr_cell);
 
       //check that the current cell corresponds to SPACE, otherwise delete it
-      if (                                           )
+      if (maze->getrow(curr_cell) != SPACE && maze->getcol(curr_cell) != SPACE)
       {
          //update the cell to TRIED
          //put the cell on the stack (move forward through the maze)
@@ -170,7 +171,7 @@ bool Maze::traverse()
       {
          //DO THIS
          //delete the cell
-
+		delete cell;
 
       }
    }
