@@ -76,10 +76,7 @@ bool Maze::isSolved(Cell* curr_cell, StackLinked<Cell>* stack) //ask
 	int curr_row = curr_cell->getRow();
 	int curr_col = curr_cell->getCol();
 	
-	/*
-	int finalRow = Matrix->getNumRows();
-	int finalCol = Matrix->getNumCols();
-	*/
+
 	
    //have you solved the maze? (check that we are at the bottom right maze location and that it is a SPACE
    if (curr_row == width && curr_col == height && (maze->getElement(curr_row, curr_col) == 1))  
