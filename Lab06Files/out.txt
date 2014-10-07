@@ -1,0 +1,50 @@
+Maze.cpp: In member function 'Cell* Maze::processBackTrack(StackLinked<Cell>*)':
+Maze.cpp:48:28: error: 'class Cell' has no member named 'getdir'
+  Direction dir = top_cell->getdir();
+                            ^
+Maze.cpp:59:19: error: 'class Cell' has no member named 'getdir'
+   dir = top_cell->getdir();
+                   ^
+Maze.cpp: In member function 'bool Maze::isSolved(Cell*, StackLinked<Cell>*)':
+Maze.cpp:88:13: error: invalid conversion from 'int' to 'Cell*' [-fpermissive]
+   curr_cell = TRIED; // 
+             ^
+Maze.cpp:91:7: error: expected unqualified-id before '->' token
+   Maze->push(curr_cell);
+       ^
+Maze.cpp: In member function 'void Maze::processSolution(StackLinked<Cell>*)':
+Maze.cpp:108:30: error: expected primary-expression before ')' token
+    while(                    )
+                              ^
+Maze.cpp: In member function 'bool Maze::traverse()':
+Maze.cpp:156:23: error: 'class CSC2110::Matrix' has no member named 'getrow'
+       int row = maze->getrow(curr_cell);
+                       ^
+Maze.cpp:157:23: error: 'class CSC2110::Matrix' has no member named 'getcol'
+       int col = maze->getcol(curr_cell);
+                       ^
+Maze.cpp:160:17: error: 'class CSC2110::Matrix' has no member named 'getrow'
+       if (maze->getrow(curr_cell) != SPACE && maze->getcol(curr_cell) != SPACE)
+                 ^
+Maze.cpp:160:53: error: 'class CSC2110::Matrix' has no member named 'getcol'
+       if (maze->getrow(curr_cell) != SPACE && maze->getcol(curr_cell) != SPACE)
+                                                     ^
+Maze.cpp:178:10: error: 'cell' was not declared in this scope
+   delete cell;
+          ^
+In file included from Maze.h:8:0,
+                 from Maze.cpp:1:
+StackLinked.h: In instantiation of 'T* StackLinked<T>::peek() [with T = Cell]':
+Maze.cpp:45:33:   required from here
+StackLinked.h:73:28: error: no matching function for call to 'NextNode<Cell>::getNext(Cell*&)'
+    return top->getNext(item);
+                            ^
+StackLinked.h:73:28: note: candidate is:
+In file included from StackLinked.h:4:0,
+                 from Maze.h:8,
+                 from Maze.cpp:1:
+NextNode.h:36:14: note: NextNode<T>* NextNode<T>::getNext() [with T = Cell]
+ NextNode<T>* NextNode<T>::getNext()
+              ^
+NextNode.h:36:14: note:   candidate expects 0 arguments, 1 provided
+make: *** [Maze.o] Error 1

@@ -45,19 +45,19 @@ Cell* Maze::processBackTrack(StackLinked<Cell>* stack)
    Cell* top_cell = stack->peek();  
    //top_cell is NULL if the stack is empty
    //top_cell's direction is DEAD_END if you need to keep backtracking
+   
 
-   while (Direction==DEAD_END)  //need to back track
+   while (top_cell->getDir()==DEAD_END && top_cell != NULL)  //need to back track
    {
       
-
-
       //remove the cell and set the maze location to BACKTRACK (the maze is a Matrix)
-		pop(cell);
-
-
+		stack->pop();
+		this->maze->setElement(top_cell->getRow(), top_cell->getCol(), BACKTRACK);
+		
+		
       //look at the next cell
-		peek(nextcell());
-
+		delete top_cell;
+		top_cell = stack->peek();
 
 
 
@@ -70,30 +70,36 @@ Cell* Maze::processBackTrack(StackLinked<Cell>* stack)
 
 bool Maze::isSolved(Cell* curr_cell, StackLinked<Cell>* stack) //ask
 {
+	bool solved = 0;
    //DO THIS
    //get row and col from curr_cell
-	cell->getrow(curr_cell)
-	cell->getcol(curr_cell)
-
-
+	int curr_row = curr_cell->getRow();
+	int curr_col = curr_cell->getCol();
+	
+	/*
+	int finalRow = Matrix->getNumRows();
+	int finalCol = Matrix->getNumCols();
+	*/
+	
    //have you solved the maze? (check that we are at the bottom right maze location and that it is a SPACE
-   if ()  
+   if (curr_row == width && curr_col == height && (maze->getElement(curr_row, curr_col) == 1))  
    {
-
-
+		
+		
       //set the maze location to TRIED
-
+		TRIED = 1;
 
       //push curr_cell
-
-
-      gui->update();
+		stack->push(curr_cell);
+		solved = 1;
+		gui->update();
       //return the appropriate boolean
-
+		return solved;
    }
 
 
    //return the appropriate boolean
+	return solved;
 }
 
 //backing through the maze, setting the solution color to PATH
@@ -101,14 +107,14 @@ void Maze::processSolution(StackLinked<Cell>* stack)
 {
    //DO THIS
    //the stack has the solution path stored
-   while(                    )
+   while(!stack->isEmpty())
    {
       //get the next cell from the stack
-
+		Cell* cell = stack->pop();
 
       
       //update the maze location to PATH
-
+		maze->setElement(cell->getRow(), cell->getCol(), PATH);
 
 
 
@@ -137,8 +143,9 @@ bool Maze::traverse()
 
       //call a method in the Cell class to give you a new Cell in a new direction relative to top_cell (initially, DOWN)
       //DO THIS
-      Cell* curr_cell = new Cell(1,2);
-
+		Cell* curr_cell = NULL;
+		curr_cell = top_cell->nextCell();
+	  
 
 
 
@@ -149,18 +156,18 @@ bool Maze::traverse()
 
       //DO THIS
       //get the row and col from curr_cell
-      int row = maze->getrow(curr_cell);
-      int col = maze->getcol(curr_cell);
+      int curr_row = 0;
+      int curr_col = 0;
 
       //check that the current cell corresponds to SPACE, otherwise delete it
-      if (maze->getrow(curr_cell) != SPACE && maze->getcol(curr_cell) != SPACE)
+      if (maze->getElement(curr_cell->getRow(), curr_cell->getCol()) == SPACE)
       {
          //update the cell to TRIED
          //put the cell on the stack (move forward through the maze)
-
-
-
-
+		maze->setElement(curr_cell->getRow(), curr_cell->getCol(), TRIED);
+		stack.push(curr_cell);
+		
+		
 
 
 
@@ -171,8 +178,8 @@ bool Maze::traverse()
       {
          //DO THIS
          //delete the cell
-		delete cell;
-
+		delete curr_cell;
+		curr_cell = NULL;
       }
    }
 
